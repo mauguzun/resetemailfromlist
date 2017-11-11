@@ -1,0 +1,11 @@
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\obj\Debug\EmailReseter.csprojResolveAssemblyReference.cache
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\obj\Debug\MultiThreadExample.Form1.resources
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\obj\Debug\MultiThreadExample.Properties.Resources.resources
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\obj\Debug\EmailReseter.csproj.GenerateResource.Cache
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\obj\Debug\MultiThreadExample.exe
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\obj\Debug\MultiThreadExample.pdb
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\bin\Debug\MultiThreadExample.exe.config
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\bin\Debug\MultiThreadExample.exe
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\bin\Debug\MultiThreadExample.pdb
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\bin\Debug\WebDriver.dll
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmail\MultiThreadExample\bin\Debug\WebDriver.xml

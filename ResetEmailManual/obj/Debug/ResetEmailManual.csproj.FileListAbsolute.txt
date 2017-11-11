@@ -1,0 +1,12 @@
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\MultiThreadExample.exe.config
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\MultiThreadExample.exe
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\MultiThreadExample.pdb
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\WebDriver.dll
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\WebDriver.xml
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\MultiThreadExample.Form1.resources
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\MultiThreadExample.Properties.Resources.resources
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\ResetEmailManual.csproj.GenerateResource.Cache
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\MultiThreadExample.exe
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\MultiThreadExample.pdb
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\phantomjs-license.txt
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\ResetEmailManual.csprojResolveAssemblyReference.cache
