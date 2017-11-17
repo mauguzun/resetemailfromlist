@@ -17,5 +17,7 @@ namespace MultiThreadExample
         public Thread Thread { get; set; }
 
         public string Proxy { get; set; }
+
+        public string Email { get; set; } = null;
     }
 }

@@ -27,6 +27,8 @@ namespace MultiThreadExample
 
         List<string> _proxy;
         List<string> _email;
+        List<Acc> _acc;
+
         List<ThreadAndDriver> _threadAndDriver;
 
 
@@ -47,6 +49,8 @@ namespace MultiThreadExample
         private void _LoadSettings()
         {
             _email = new List<string>();
+            _acc = new List<Acc>();
+
             this._ClearAll();
             try
             {
@@ -57,14 +61,15 @@ namespace MultiThreadExample
                 foreach (var oneRow in temp)
                 {
                     _email.Add(oneRow.Split(':')[0]);
+
                 }
 
-                con.Text += "All done" + Environment.NewLine; ;
+                this.ConText ( "All done" + Environment.NewLine) ;
 
             }
             catch
             {
-                con.Text += $"not loaded email && proxy " + Environment.NewLine; ;
+                this.ConText($"not loaded email && proxy " + Environment.NewLine);
             }
         }
 
@@ -106,12 +111,12 @@ namespace MultiThreadExample
             try
             {
                 List<string> fix = File.ReadAllLines("fixed.txt").ToList();
-                con.Text = $"{fix.Count} email already done";
+                this.ConText(  $"{fix.Count} email already done");
 
                 foreach (var line in fix)
                     _email.Remove(line);
 
-                con.Text = $"{_email.Count} after clreaing";
+                this.ConText( $"{_email.Count} after clreaing");
             }
             catch
             {
@@ -122,17 +127,21 @@ namespace MultiThreadExample
         private void _CloseAll()
         {
 
-
-            foreach (var oneRow in _threadAndDriver)
+            if (_threadAndDriver != null)
             {
-                try
+                foreach (var oneRow in _threadAndDriver)
                 {
-                    oneRow.Driver.Quit();
-                    oneRow.Thread.Abort();
+                    try
+                    {
+                        oneRow.Driver.Quit();
+                        oneRow.Thread.Abort();
+                    }
+                    catch { }
+
                 }
-                catch { }
 
             }
+
 
 
         }
@@ -149,14 +158,14 @@ namespace MultiThreadExample
             try
             {
 
-                
+
                 for (int i = 0; i < 15; i++)
                 {
                     current.Driver.Url = RESETLINK;
                     current.Driver.FindElementById("userQuery").SendKeys(_email[number]);
                     current.Driver.FindElementByCssSelector(".sendBar button").Click();
                     UpdateList(_email[number]);
-                   
+
                     number++;
                 }
             }
@@ -173,6 +182,60 @@ namespace MultiThreadExample
 
 
 
+        }
+
+        private void MakeOne(object state)
+        {
+            ThreadAndDriver current = (ThreadAndDriver)state;
+            current.Driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 0, 20);
+
+            this.ConText ( current.Email);
+            try
+            {
+
+
+                current.Driver.Url = RESETLINK;
+                current.Driver.FindElementById("userQuery").SendKeys(current.Email);
+                current.Driver.FindElementByCssSelector(".sendBar button").Click();
+                // UpdateList(current.Email);
+                this.ConText($"{current.Email} done");
+
+
+            }
+            catch (Exception ex)
+            {
+                this.ConText($"{current.Email} error");
+                _TryCloseThread(current);
+            }
+
+            finally
+            {
+                _TryCloseThread(current);
+            }
+
+
+
+
+        }
+
+        private void ConText(string text)
+        {
+
+            try
+            {
+                con.Text = text;
+            }
+            catch
+            {
+                MethodInvoker inv = delegate
+                {
+                    this.con.Text = text;
+                };
+
+                this.Invoke(inv);
+            }
+
+           
         }
 
         private void _ClearAll()
@@ -211,7 +274,7 @@ namespace MultiThreadExample
             //option.AddArgument($"--proxy-server={proxy}");
             // option.AddArgument("--no-startup-window");
             var driver = new PhantomJSDriver(_GetJsSettings(proxy));
-            return driver; 
+            return driver;
         }
 
         private static PhantomJSDriverService _GetJsSettings(string proxy)
@@ -237,7 +300,60 @@ namespace MultiThreadExample
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _acc = new List<Acc>();
+
+            var temp = File.ReadAllLines(_emailFileName).ToList();
+            foreach (var oneRow in temp)
+            {
+                _acc.Add(new Acc() { Email = oneRow.Split(':')[0], Name = oneRow.Split(':')[2] });
+            }
+            dataGridView.DataSource = _acc;
+        }
+
+        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string email = dataGridView[0, e.RowIndex].Value.ToString();
+            string proxy = this._ProxyGet();
+            var driver = OpenAndReturnDriver(proxy);
+
+            _threadAndDriver = new List<ThreadAndDriver>();
+            Thread th = new Thread(MakeOne);
+            ThreadAndDriver threadAndDriver = new ThreadAndDriver() { Driver = driver, Proxy = proxy, Thread = th, Email = email };
+
+            th.Start(threadAndDriver);
+            _threadAndDriver.Add(threadAndDriver);
+            _threadAndDriver.Clear();
+        }
+
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (_acc == null)
+            {
+                con.Text = "no filtered";
+                return;
+            }
+            else if( String.IsNullOrEmpty(toolStripTextBox1.Text.Trim()) )
+            {
+                con.Text = "cleread";
+                dataGridView.DataSource = _acc;
+            }
+            else
+            {
+                List<Acc> newData = _acc.Where((x) => x.Name.StartsWith(toolStripTextBox1.Text)).ToList();
+               
+               dataGridView.DataSource = newData;
+            }
+
+           
+
+        }
     }
     public static class IEnumerableExtensions
     {
