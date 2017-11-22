@@ -346,13 +346,45 @@ namespace MultiThreadExample
             }
             else
             {
-                List<Acc> newData = _acc.Where((x) => x.Name.StartsWith(toolStripTextBox1.Text)).ToList();
+                List<Acc> newData = _acc.Where((x) => x.Name.StartsWith(toolStripTextBox1.Text) | x.Name.Contains(toolStripTextBox1.Text)    ).ToList();
                
                dataGridView.DataSource = newData;
             }
 
            
 
+        }
+
+        private void clearProxyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            con.Text = $"start proxy clean {_proxy.Count()}";
+
+            Parallel.ForEach(_proxy, CheckProxyMethod );
+            con.Text = $"good proxy  {_proxy.Count()}";
+            File.WriteAllLines(this._proxyFileName, _proxy);
+        }
+
+        private void CheckProxyMethod(string proxy)
+        {
+            PhantomJSDriver driver;
+            try
+            {
+
+                driver = OpenAndReturnDriver(proxy);
+                driver.Url = RESETLINK;
+                driver.FindElementById("userQuery").SendKeys("hallo@ahloc.com");
+
+                // UpdateList(current.Email);
+                this.ConText($"{proxy} good");
+
+                driver.Close();
+            }
+            catch (Exception ex)
+            {
+                this.ConText($"{proxy} bad");
+                this._email.Remove(proxy);
+
+            }
         }
     }
     public static class IEnumerableExtensions
