@@ -23,7 +23,7 @@ namespace MultiThreadExample
         private const string RESETLINK = "https://www.pinterest.com/password/reset/";
         static int number = 0;
 
-        private int _threadCount = 15;
+        private int _threadCount = 25;
 
         List<string> _proxy;
         List<string> _email;
@@ -76,7 +76,12 @@ namespace MultiThreadExample
         private void makeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _ClearFixed();
+            _EailMultiThreadClear();
 
+        }
+
+        private void _EailMultiThreadClear()
+        {
             while (true)
             {
                 if (number > _email.Count())
@@ -102,8 +107,6 @@ namespace MultiThreadExample
                 this._CloseAll();
 
             }
-
-
         }
 
         private void _ClearFixed()
@@ -384,6 +387,39 @@ namespace MultiThreadExample
                 this.ConText($"{proxy} bad");
                 this._email.Remove(proxy);
 
+            }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+           
+            try
+            {
+              
+                _email = File.ReadAllLines(@"C:\my_work_files\pinterest\reset.txt").ToList();
+                _ClearFixed();
+                this.ConText($"{_email.Count()} loaded");
+                _EailMultiThreadClear();
+               
+
+            }
+            catch(Exception ex)
+            {
+                this.ConText(ex.Message);
+
+            }
+        }
+
+        private void deleteFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                File.Delete("fixed.txt");
+                ConText ("file deleted");
+            }
+            catch(Exception ex )
+            {
+                ConText(ex.Message);
             }
         }
     }
