@@ -32,7 +32,6 @@ namespace MultiThreadExample
         List<ThreadAndDriver> _threadAndDriver;
 
 
-        string _proxyFileName = "proxy.txt";
         string _emailFileName = @"C:\my_work_files\pinterest\source_all_account_for_blaster.txt";
 
 
@@ -54,7 +53,7 @@ namespace MultiThreadExample
             this._ClearAll();
             try
             {
-                _proxy = File.ReadAllLines(_proxyFileName).ToList();
+                _proxy = new GetProxy.ProxyReader().GetList();
                 var temp = File.ReadAllLines(_emailFileName).ToList();
 
 
@@ -86,8 +85,10 @@ namespace MultiThreadExample
             {
                 if (number > _email.Count())
                 {
+
                     break;
                 }
+           
                 _threadAndDriver = new List<ThreadAndDriver>();
                 for (int i = 0; i < this._threadCount; i++)
                 {
@@ -160,10 +161,11 @@ namespace MultiThreadExample
             current.Driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 0, 20);
             try
             {
-
+               
 
                 for (int i = 0; i < 15; i++)
                 {
+                    con.Text = _email[number];
                     current.Driver.Url = RESETLINK;
                     current.Driver.FindElementById("userQuery").SendKeys(_email[number]);
                     current.Driver.FindElementByCssSelector(".sendBar button").Click();
@@ -364,7 +366,7 @@ namespace MultiThreadExample
 
             Parallel.ForEach(_proxy, CheckProxyMethod );
             con.Text = $"good proxy  {_proxy.Count()}";
-            File.WriteAllLines(this._proxyFileName, _proxy);
+          
         }
 
         private void CheckProxyMethod(string proxy)
@@ -397,6 +399,11 @@ namespace MultiThreadExample
             {
               
                 _email = File.ReadAllLines(@"C:\my_work_files\pinterest\reset.txt").ToList();
+
+                List<string> b = new List<string>();
+                b.AddRange(_email.Distinct());
+                _email = b;
+                
                 _ClearFixed();
                 this.ConText($"{_email.Count()} loaded");
                 _EailMultiThreadClear();

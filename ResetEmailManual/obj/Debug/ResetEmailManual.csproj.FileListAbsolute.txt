@@ -10,3 +10,5 @@ C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailM
 C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\MultiThreadExample.pdb
 C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\phantomjs-license.txt
 C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\ResetEmailManual.csprojResolveAssemblyReference.cache
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\ResetEmailManual.csproj.CoreCompileInputs.cache
+C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\GetProxy.dll
