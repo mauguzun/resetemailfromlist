@@ -14,7 +14,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.PhantomJS;
 
 namespace MultiThreadExample
 {
@@ -23,7 +22,7 @@ namespace MultiThreadExample
         private const string RESETLINK = "https://www.pinterest.com/password/reset/";
         static int number = 0;
 
-        private int _threadCount = 25;
+        private int _threadCount = 5;
 
         List<string> _proxy;
         List<string> _email;
@@ -63,7 +62,7 @@ namespace MultiThreadExample
 
                 }
 
-                this.ConText ( "All done" + Environment.NewLine) ;
+                this.ConText("All done" + Environment.NewLine);
 
             }
             catch
@@ -88,10 +87,11 @@ namespace MultiThreadExample
 
                     break;
                 }
-           
+
                 _threadAndDriver = new List<ThreadAndDriver>();
                 for (int i = 0; i < this._threadCount; i++)
                 {
+
                     string proxy = this._ProxyGet();
                     var driver = OpenAndReturnDriver(proxy);
 
@@ -99,7 +99,7 @@ namespace MultiThreadExample
                     th.Name = "QQQ";
 
                     ThreadAndDriver threadAndDriver = new ThreadAndDriver() { Driver = driver, Proxy = proxy, Thread = th };
-
+                    //Make(threadAndDriver);
                     th.Start(threadAndDriver);
                     _threadAndDriver.Add(threadAndDriver);
 
@@ -115,12 +115,12 @@ namespace MultiThreadExample
             try
             {
                 List<string> fix = File.ReadAllLines("fixed.txt").ToList();
-                this.ConText(  $"{fix.Count} email already done");
+                this.ConText($"{fix.Count} email already done");
 
                 foreach (var line in fix)
                     _email.Remove(line);
 
-                this.ConText( $"{_email.Count} after clreaing");
+                this.ConText($"{_email.Count} after clreaing");
             }
             catch
             {
@@ -158,10 +158,10 @@ namespace MultiThreadExample
         private void Make(object state)
         {
             ThreadAndDriver current = (ThreadAndDriver)state;
-            current.Driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 0, 20);
+            current.Driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 0, 60);
             try
             {
-               
+
 
                 for (int i = 0; i < 15; i++)
                 {
@@ -194,7 +194,7 @@ namespace MultiThreadExample
             ThreadAndDriver current = (ThreadAndDriver)state;
             current.Driver.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, 0, 20);
 
-            this.ConText ( current.Email);
+            this.ConText(current.Email);
             try
             {
 
@@ -240,7 +240,7 @@ namespace MultiThreadExample
                 this.Invoke(inv);
             }
 
-           
+
         }
 
         private void _ClearAll()
@@ -273,22 +273,26 @@ namespace MultiThreadExample
             }
         }
 
-        private PhantomJSDriver OpenAndReturnDriver(string proxy)
+        private ChromeDriver OpenAndReturnDriver(string proxy)
         {
-            //ChromeOptions option = new ChromeOptions();
-            //option.AddArgument($"--proxy-server={proxy}");
-            // option.AddArgument("--no-startup-window");
-            var driver = new PhantomJSDriver(_GetJsSettings(proxy));
+            ChromeOptions option = new ChromeOptions();
+            option.AddArgument($"--proxy-server={proxy}");
+            option.AddArguments("headless");
+
+            var driverService = ChromeDriverService.CreateDefaultService();
+            driverService.HideCommandPromptWindow = true;
+
+            var driver = new ChromeDriver(driverService, option);
             return driver;
         }
 
-        private static PhantomJSDriverService _GetJsSettings(string proxy)
-        {
-            var serviceJs = PhantomJSDriverService.CreateDefaultService();
-            serviceJs.HideCommandPromptWindow = true;
-            serviceJs.Proxy = proxy;
-            return serviceJs;
-        }
+        //private static PhantomJSDriverService _GetJsSettings(string proxy)
+        //{
+        //    var serviceJs = PhantomJSDriverService.CreateDefaultService();
+        //    serviceJs.HideCommandPromptWindow = true;
+        //    serviceJs.Proxy = proxy;
+        //    return serviceJs;
+        //}
 
         private void UpdateList(string email)
         {
@@ -344,19 +348,19 @@ namespace MultiThreadExample
                 con.Text = "no filtered";
                 return;
             }
-            else if( String.IsNullOrEmpty(toolStripTextBox1.Text.Trim()) )
+            else if (String.IsNullOrEmpty(toolStripTextBox1.Text.Trim()))
             {
                 con.Text = "cleread";
                 dataGridView.DataSource = _acc;
             }
             else
             {
-                List<Acc> newData = _acc.Where((x) => x.Name.StartsWith(toolStripTextBox1.Text) | x.Name.Contains(toolStripTextBox1.Text)    ).ToList();
-               
-               dataGridView.DataSource = newData;
+                List<Acc> newData = _acc.Where((x) => x.Name.StartsWith(toolStripTextBox1.Text) | x.Name.Contains(toolStripTextBox1.Text)).ToList();
+
+                dataGridView.DataSource = newData;
             }
 
-           
+
 
         }
 
@@ -364,14 +368,14 @@ namespace MultiThreadExample
         {
             con.Text = $"start proxy clean {_proxy.Count()}";
 
-            Parallel.ForEach(_proxy, CheckProxyMethod );
+            Parallel.ForEach(_proxy, CheckProxyMethod);
             con.Text = $"good proxy  {_proxy.Count()}";
-          
+
         }
 
         private void CheckProxyMethod(string proxy)
         {
-            PhantomJSDriver driver;
+            ChromeDriver driver;
             try
             {
 
@@ -394,23 +398,23 @@ namespace MultiThreadExample
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-           
+
             try
             {
-              
+
                 _email = File.ReadAllLines(@"C:\my_work_files\pinterest\reset.txt").ToList();
 
                 List<string> b = new List<string>();
                 b.AddRange(_email.Distinct());
                 _email = b;
-                
+
                 _ClearFixed();
                 this.ConText($"{_email.Count()} loaded");
                 _EailMultiThreadClear();
-               
+
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.ConText(ex.Message);
 
@@ -422,9 +426,9 @@ namespace MultiThreadExample
             try
             {
                 File.Delete("fixed.txt");
-                ConText ("file deleted");
+                ConText("file deleted");
             }
-            catch(Exception ex )
+            catch (Exception ex)
             {
                 ConText(ex.Message);
             }

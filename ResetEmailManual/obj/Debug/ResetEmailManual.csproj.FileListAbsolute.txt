@@ -12,3 +12,16 @@ C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailM
 C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\ResetEmailManual.csprojResolveAssemblyReference.cache
 C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\obj\Debug\ResetEmailManual.csproj.CoreCompileInputs.cache
 C:\Users\maugu\Documents\Visual Studio 2017\Projects\ResetEmailManul\ResetEmailManual\bin\Debug\GetProxy.dll
+C:\resetemailfromlist\ResetEmailManual\bin\Debug\MultiThreadExample.exe
+C:\resetemailfromlist\ResetEmailManual\bin\Debug\WebDriver.dll
+C:\resetemailfromlist\ResetEmailManual\bin\Debug\MultiThreadExample.exe.config
+C:\resetemailfromlist\ResetEmailManual\bin\Debug\WebDriver.xml
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\MultiThreadExample.Form1.resources
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\MultiThreadExample.Properties.Resources.resources
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\ResetEmailManual.csproj.GenerateResource.cache
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\ResetEmailManual.csproj.CoreCompileInputs.cache
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\ResetEmailManual.csproj.CopyComplete
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\MultiThreadExample.exe
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\MultiThreadExample.pdb
+C:\resetemailfromlist\ResetEmailManual\obj\Debug\ResetEmailManual.csprojAssemblyReference.cache
+C:\resetemailfromlist\ResetEmailManual\bin\Debug\MultiThreadExample.pdb
